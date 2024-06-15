@@ -61,6 +61,8 @@ dependencies {
     implementation(libs.androidx.material3)
     implementation("com.google.ai.client.generativeai:generativeai:0.7.0")
     implementation("androidx.core:core-splashscreen:1.0.1")
+    implementation ("io.coil-kt:coil-compose:2.0.0")
+    implementation ("androidx.compose.material3:material3:x.y.z")
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

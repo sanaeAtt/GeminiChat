@@ -43,4 +43,8 @@ class ChatViewModel : ViewModel() {
 
         }
     }
+
+    fun resetChat() {
+        messageList.clear()
+    }
 }

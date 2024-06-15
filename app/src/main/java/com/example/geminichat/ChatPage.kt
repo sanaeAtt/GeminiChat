@@ -1,15 +1,7 @@
 package com.example.geminichat
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -21,11 +13,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -34,15 +22,17 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.geminichat.ui.theme.green
-import com.example.geminichat.ui.theme.whiteDove
+import com.example.geminichat.ui.theme.DarckBleu
+import com.example.geminichat.ui.theme.PurpleGray
 
 @Composable
 fun chatPage(modifier: Modifier = Modifier, viewModel: ChatViewModel) {
     Column(
-        modifier = modifier.fillMaxSize()
+        modifier = modifier
+            .fillMaxSize()
+            .background(Color.Transparent)
     ) {
-        AppHeader()
+        AppHeader(onNewDiscussionClick = { viewModel.resetChat() })
         Column(
             modifier = Modifier.weight(1f)
         ) {
@@ -57,10 +47,38 @@ fun chatPage(modifier: Modifier = Modifier, viewModel: ChatViewModel) {
 }
 
 @Composable
+fun AppHeader(onNewDiscussionClick: () -> Unit) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(MaterialTheme.colorScheme.primary)
+            .padding(16.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.SpaceBetween
+    ) {
+        Text(
+            text = "Bot Helper",
+            color = Color.White,
+            fontSize = 22.sp
+        )
+        IconButton(onClick = onNewDiscussionClick) {
+            Icon(
+                painter = painterResource(id = R.drawable.ic_new_discussion),
+                contentDescription = "Start New Discussion",
+                tint = Color.White,
+                modifier = Modifier.size(24.dp)
+            )
+        }
+    }
+}
+
+@Composable
 fun MessageList(modifier: Modifier = Modifier, messageList: List<MessageModel>) =
     if (messageList.isEmpty()) {
         Column(
-            modifier = modifier.fillMaxSize(),
+            modifier = modifier
+                .fillMaxSize()
+                .background(Color.Transparent),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
@@ -68,13 +86,14 @@ fun MessageList(modifier: Modifier = Modifier, messageList: List<MessageModel>) 
                 modifier = Modifier.size(60.dp),
                 painter = painterResource(id = R.drawable.ic_question_answer),
                 contentDescription = "icon",
-                tint = green
+                tint = DarckBleu
             )
             Text(text = "Ask something ...", fontSize = 22.sp)
         }
     } else {
         LazyColumn(
-            modifier = modifier,
+            modifier = modifier
+                .background(Color.Transparent),
             reverseLayout = true
         ) {
             items(messageList.reversed()) { message ->
@@ -112,14 +131,14 @@ fun MessageRow(messageModel: MessageModel) {
                         bottom = 8.dp
                     )
                     .clip(RoundedCornerShape(18f))
-                    .background(if (isModel) whiteDove else green)
+                    .background(if (isModel) DarckBleu else PurpleGray)
                     .padding(16.dp)
             ) {
                 SelectionContainer {
                     Text(
                         text = messageModel.message,
                         fontWeight = FontWeight.W500,
-                        color = if (!isModel) Color.White else Color.Black
+                        color = Color.White
                     )
                 }
             }
@@ -158,18 +177,4 @@ fun MessageInput(onMessageSend: (String) -> Unit, modifier: Modifier = Modifier)
     }
 }
 
-@Composable
-fun AppHeader() {
-    Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .background(MaterialTheme.colorScheme.primary)
-    ) {
-        Text(
-            modifier = Modifier.padding(16.dp),
-            text = "Bot healper",
-            color = Color.White,
-            fontSize = 22.sp
-        )
-    }
-}
+
