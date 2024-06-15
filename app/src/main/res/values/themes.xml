@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <style name="Theme.MysplashScreen" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/PurpleGray</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/giminichatlogo</item>
+        <item name="postSplashScreenTheme">@style/Theme.GeminiChat</item>
+    </style>
+
     <style name="Theme.GeminiChat" parent="android:Theme.Material.Light.NoActionBar" />
+
+
 </resources>
