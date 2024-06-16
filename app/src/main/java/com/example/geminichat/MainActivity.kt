@@ -37,7 +37,7 @@ class MainActivity : ComponentActivity() {
                         modifier = Modifier.fillMaxSize()
                             .background(whiteDove),
 
-                    ){
+                        ) {
 
                         // Appel à chatPage pour afficher le contenu de la page de chat
                         chatPage(

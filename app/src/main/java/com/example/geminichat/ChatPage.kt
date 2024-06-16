@@ -176,5 +176,3 @@ fun MessageInput(onMessageSend: (String) -> Unit, modifier: Modifier = Modifier)
         }
     }
 }
-
-
