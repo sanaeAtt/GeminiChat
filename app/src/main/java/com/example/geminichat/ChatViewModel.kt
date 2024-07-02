@@ -24,6 +24,7 @@ class ChatViewModel : ViewModel() {
         apiKey = Constants.apiKey
     )
 
+    @RequiresApi(Build.VERSION_CODES.O)
     fun sendMessage(question: String) {
         viewModelScope.launch {
             try {

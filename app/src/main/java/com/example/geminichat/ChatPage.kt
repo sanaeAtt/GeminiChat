@@ -1,5 +1,7 @@
 package com.example.geminichat
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -26,9 +28,9 @@ import com.example.geminichat.ui.theme.DarckBleu
 import com.example.geminichat.ui.theme.PurpleGray
 
 @Composable
-fun chatPage(modifier: Modifier = Modifier, viewModel: ChatViewModel) {
+fun chatPage(viewModel: ChatViewModel) {
     Column(
-        modifier = modifier
+        modifier = Modifier
             .fillMaxSize()
             .background(Color.Transparent)
     ) {
@@ -145,7 +147,6 @@ fun MessageRow(messageModel: MessageModel) {
         }
     }
 }
-
 @Composable
 fun MessageInput(onMessageSend: (String) -> Unit, modifier: Modifier = Modifier) {
     var message by remember {
@@ -154,7 +155,8 @@ fun MessageInput(onMessageSend: (String) -> Unit, modifier: Modifier = Modifier)
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .padding(8.dp),
+            .padding(top = 8.dp, start = 8.dp, end = 8.dp)
+            .background(Color.Transparent),
         verticalAlignment = Alignment.CenterVertically
     ) {
         OutlinedTextField(

@@ -27,10 +27,9 @@ import com.example.geminichat.ui.theme.GeminiChatTheme
 import com.example.geminichat.ui.theme.whiteDove
 import java.time.LocalDate
 import java.time.LocalDateTime
-import java.time.temporal.ChronoUnit
+
 
 class MainActivity : ComponentActivity() {
-    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         installSplashScreen()
@@ -44,9 +43,10 @@ class MainActivity : ComponentActivity() {
                     Box(
                         modifier = Modifier
                             .fillMaxSize()
-                            .background(whiteDove),
+                            .background(whiteDove)
+                            .padding(innerPadding)
                     ) {
-                        SlidingMenuContainer(chatViewModel, modifier = Modifier.padding(innerPadding))
+                        SlidingMenuContainer(chatViewModel)
                     }
                 }
             }
@@ -54,7 +54,6 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun SlidingMenuContainer(viewModel: ChatViewModel, modifier: Modifier = Modifier) {
     var offsetX by remember { mutableStateOf(-250f) }  // Start hidden off-screen
@@ -71,7 +70,7 @@ fun SlidingMenuContainer(viewModel: ChatViewModel, modifier: Modifier = Modifier
             }
     ) {
         // Main content
-        chatPage(modifier = modifier.fillMaxSize(), viewModel = viewModel)
+        chatPage(viewModel = viewModel)
 
         // Sliding menu
         Column(
@@ -86,18 +85,17 @@ fun SlidingMenuContainer(viewModel: ChatViewModel, modifier: Modifier = Modifier
                 text = "Recent Discussions",
                 fontSize = 18.sp,
                 color = Color.White,
-                fontWeight = FontWeight.Bold,  // Make the text bold
+                fontWeight = FontWeight.Bold,
                 modifier = Modifier.padding(16.dp)
             )
-            Spacer(modifier = Modifier.height(8.dp))  // Space between the title and the list
-            DisplayDiscussions(viewModel.previousDiscussions)
+            Spacer(modifier = Modifier.height(8.dp))
+            DisplayDiscussions(viewModel.previousDiscussions, viewModel)
         }
     }
 }
 
-@RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun DisplayDiscussions(discussions: List<PreviousDiscussion>) {
+fun DisplayDiscussions(discussions: List<PreviousDiscussion>, viewModel: ChatViewModel) {
     val now = LocalDateTime.now()
 
     val todayDiscussions = discussions.filter {
@@ -114,22 +112,21 @@ fun DisplayDiscussions(discussions: List<PreviousDiscussion>) {
     }
 
     if (todayDiscussions.isNotEmpty()) {
-        DiscussionSection("Auj.", todayDiscussions)
+        DiscussionSection("Auj.", todayDiscussions, viewModel)
     }
     if (yesterdayDiscussions.isNotEmpty()) {
-        DiscussionSection("Hier", yesterdayDiscussions)
+        DiscussionSection("Hier", yesterdayDiscussions, viewModel)
     }
     if (last7DaysDiscussions.isNotEmpty()) {
-        DiscussionSection("Les 7 derniers jours", last7DaysDiscussions)
+        DiscussionSection("Les 7 derniers jours", last7DaysDiscussions, viewModel)
     }
     if (last30DaysDiscussions.isNotEmpty()) {
-        DiscussionSection("Les 30 derniers jours", last30DaysDiscussions)
+        DiscussionSection("Les 30 derniers jours", last30DaysDiscussions, viewModel)
     }
 }
 
-
 @Composable
-fun DiscussionSection(title: String, discussions: List<PreviousDiscussion>) {
+fun DiscussionSection(title: String, discussions: List<PreviousDiscussion>, viewModel: ChatViewModel) {
     Column(modifier = Modifier.padding(8.dp)) {
         Text(
             text = title,
@@ -146,7 +143,7 @@ fun DiscussionSection(title: String, discussions: List<PreviousDiscussion>) {
                     spanStyle = SpanStyle(color = Color.White)  // Set the text color to white
                 ),
                 onClick = {
-                    // Load the discussion when clicked
+                    viewModel.loadPreviousDiscussion(discussion)
                 },
                 modifier = Modifier.padding(vertical = 4.dp)
             )
