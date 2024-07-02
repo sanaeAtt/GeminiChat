@@ -34,6 +34,9 @@ import androidx.compose.ui.unit.sp
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.ViewModelProvider
 import com.example.geminichat.ui.theme.GeminiChatTheme
+import com.example.geminichat.ui.theme.PurpleGrey40
+import com.example.geminichat.ui.theme.bleuApp
+import com.example.geminichat.ui.theme.darkbleu
 import com.example.geminichat.ui.theme.whiteDove
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -87,13 +90,13 @@ fun SlidingMenuContainer(viewModel: ChatViewModel, modifier: Modifier = Modifier
                 .width(250.dp)
                 .fillMaxHeight()
                 .offset(x = offsetX.dp)
-                .background(Color.Gray)
+                .background(whiteDove)
                 .padding(top = 16.dp)  // Add top padding
         ) {
             Text(
                 text = "Recent Discussions",
                 fontSize = 18.sp,
-                color = Color.White,
+                color = bleuApp,
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier.padding(16.dp)
             )
@@ -102,11 +105,14 @@ fun SlidingMenuContainer(viewModel: ChatViewModel, modifier: Modifier = Modifier
             Spacer(modifier = Modifier.weight(1f)) // Spacer to push the button to the bottom
             Button(
                 onClick = { viewModel.previousDiscussions.clear() },
+
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(16.dp)
+                    .padding(16.dp),
+                colors = ButtonDefaults.buttonColors(backgroundColor = bleuApp),
+
             ) {
-                Text(text = "Supprimer tout")
+                Text(text = "Supprimer tout", color = whiteDove)
             }
         }
     }
@@ -132,7 +138,7 @@ fun DisplayDiscussions(discussions: List<PreviousDiscussion>, viewModel: ChatVie
     LazyColumn {
         if (todayDiscussions.isNotEmpty()) {
             item {
-                DiscussionSection("Aujourd'hui", todayDiscussions, viewModel)
+                DiscussionSection("Auj", todayDiscussions, viewModel)
             }
         }
         if (yesterdayDiscussions.isNotEmpty()) {
@@ -158,8 +164,8 @@ fun DiscussionSection(title: String, discussions: List<PreviousDiscussion>, view
     Column(modifier = Modifier.padding(8.dp)) {
         Text(
             text = title,
-            fontSize = 16.sp,
-            color = Color.White,
+            fontSize = 18.sp,
+            color = darkbleu,
             fontWeight = FontWeight.Bold,
             modifier = Modifier.padding(vertical = 4.dp)
         )
@@ -169,11 +175,11 @@ fun DiscussionSection(title: String, discussions: List<PreviousDiscussion>, view
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(vertical = 4.dp)
+                    .background(color = PurpleGrey40)
                     .clickable {
                         viewModel.loadPreviousDiscussion(discussion)
                     },
-                elevation = 4.dp,
-                shape = RoundedCornerShape(8.dp)
+                elevation = 4.dp
             ) {
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
@@ -182,9 +188,9 @@ fun DiscussionSection(title: String, discussions: List<PreviousDiscussion>, view
                     Column(modifier = Modifier.weight(1f)) {
                         Text(
                             text = firstMessage.take(30) + if (firstMessage.length > 30) "..." else "",
-                            fontSize = 14.sp,
+                            fontSize = 17.sp,
                             fontWeight = FontWeight.Normal,
-                            color = Color.Black
+                            color = bleuApp
                         )
                         Text(
                             text = discussion.timestamp.toLocalDate().toString(),
@@ -197,7 +203,7 @@ fun DiscussionSection(title: String, discussions: List<PreviousDiscussion>, view
                         Icon(
                             imageVector = Icons.Default.Delete,
                             contentDescription = "Supprimer",
-                            tint = Color.Red
+                            tint = bleuApp
                         )
                     }
                 }

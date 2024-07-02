@@ -11,4 +11,6 @@
     <color name="YelloOrange">#f5a45c</color>
     <color name="BleuLight">#109ff8</color>
     <color name="PurpleGray">#7e73a0</color>
+    <color name="Vertpale">#E1FFC7</color>
+    <color name="grisFonce">#333333</color>
 </resources>

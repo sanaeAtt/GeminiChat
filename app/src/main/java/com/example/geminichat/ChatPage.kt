@@ -1,8 +1,6 @@
 package com.example.geminichat
 
 import ChatViewModel
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.*
@@ -28,7 +26,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.geminichat.ui.theme.DarckBleu
-import com.example.geminichat.ui.theme.PurpleGray
+import com.example.geminichat.ui.theme.Vertpale
+import com.example.geminichat.ui.theme.bleu
+import com.example.geminichat.ui.theme.bleuApp
 
 @Composable
 fun chatPage(viewModel: ChatViewModel) {
@@ -59,13 +59,13 @@ fun AppHeader(onNewDiscussionClick: () -> Unit) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .background(MaterialTheme.colorScheme.primary)
+            .background(bleuApp)
             .padding(16.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         Text(
-            text = "Bot Helper",
+            text = "Gimini Chat",
             color = Color.White,
             fontSize = 22.sp
         )
@@ -94,9 +94,9 @@ fun MessageList(modifier: Modifier = Modifier, messageList: List<MessageModel>) 
                 modifier = Modifier.size(60.dp),
                 painter = painterResource(id = R.drawable.ic_question_answer),
                 contentDescription = "icon",
-                tint = DarckBleu
+                tint = bleuApp
             )
-            Text(text = "Ask something ...", fontSize = 22.sp)
+            Text(text = "Ask something ...", fontSize = 22.sp,)
         }
     } else {
         LazyColumn(
@@ -139,7 +139,7 @@ fun MessageRow(messageModel: MessageModel) {
                         bottom = 8.dp
                     )
                     .clip(RoundedCornerShape(18f))
-                    .background(if (isModel) DarckBleu else PurpleGray)
+                    .background(if (isModel) bleu else Vertpale)
                     .padding(16.dp)
             ) {
                 SelectionContainer {
@@ -184,7 +184,9 @@ fun MessageInput(onMessageSend: (String) -> Unit,modifier: Modifier = Modifier) 
             }
         }) {
             Icon(
-                imageVector = Icons.Default.Send, contentDescription = "Send"
+                imageVector = Icons.Default.Send,
+                contentDescription = "Send",
+                tint = bleuApp
             )
         }
     }
