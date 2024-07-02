@@ -1,13 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">GeminiChat</string>
     <string name="appname">Gemini Chat</string>
     <string name="send">send</string>
     <string name="ask">Ask something ...</string>
-    <string name="err" translatable="false">Error</string>
-    <string name="typ" translatable="false">Typing ...</string>
     <string name="ampty">Empty discussion</string>
-    <string name="delete">Supprimer</string>
-    <string name="THRT">Les 30 derniers jours</string>
+    <string name="delete">Delete</string>
+    <string name="THRT">In the last 30 days</string>
     <string name="seven">Les 7 derniers jours</string>
     <string name="hier">Hier</string>
     <string name="auj">Auj</string>

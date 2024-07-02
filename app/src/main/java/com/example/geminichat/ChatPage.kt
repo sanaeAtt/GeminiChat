@@ -22,6 +22,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -65,7 +66,7 @@ fun AppHeader(onNewDiscussionClick: () -> Unit) {
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         Text(
-            text = "Gimini Chat",
+            text = stringResource(id = R.string.appname),
             color = Color.White,
             fontSize = 22.sp
         )
@@ -96,7 +97,7 @@ fun MessageList(modifier: Modifier = Modifier, messageList: List<MessageModel>) 
                 contentDescription = "icon",
                 tint = bleuApp
             )
-            Text(text = "Ask something ...", fontSize = 22.sp,)
+            Text(text = stringResource(id = R.string.ask), fontSize = 22.sp,)
         }
     } else {
         LazyColumn(
@@ -185,7 +186,7 @@ fun MessageInput(onMessageSend: (String) -> Unit,modifier: Modifier = Modifier) 
         }) {
             Icon(
                 imageVector = Icons.Default.Send,
-                contentDescription = "Send",
+                contentDescription = stringResource(id = R.string.send),
                 tint = bleuApp
             )
         }

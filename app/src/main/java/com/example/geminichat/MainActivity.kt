@@ -26,6 +26,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -94,7 +95,7 @@ fun SlidingMenuContainer(viewModel: ChatViewModel, modifier: Modifier = Modifier
                 .padding(top = 16.dp)  // Add top padding
         ) {
             Text(
-                text = "Recent Discussions",
+                text = stringResource(id = R.string.recent),
                 fontSize = 18.sp,
                 color = bleuApp,
                 fontWeight = FontWeight.Bold,
@@ -112,7 +113,7 @@ fun SlidingMenuContainer(viewModel: ChatViewModel, modifier: Modifier = Modifier
                 colors = ButtonDefaults.buttonColors(backgroundColor = bleuApp),
 
             ) {
-                Text(text = "Supprimer tout", color = whiteDove)
+                Text(text = stringResource(id = R.string.all), color = whiteDove)
             }
         }
     }
@@ -138,22 +139,22 @@ fun DisplayDiscussions(discussions: List<PreviousDiscussion>, viewModel: ChatVie
     LazyColumn {
         if (todayDiscussions.isNotEmpty()) {
             item {
-                DiscussionSection("Auj", todayDiscussions, viewModel)
+                DiscussionSection(stringResource(id = R.string.auj), todayDiscussions, viewModel)
             }
         }
         if (yesterdayDiscussions.isNotEmpty()) {
             item {
-                DiscussionSection("Hier", yesterdayDiscussions, viewModel)
+                DiscussionSection(stringResource(id = R.string.hier), yesterdayDiscussions, viewModel)
             }
         }
         if (last7DaysDiscussions.isNotEmpty()) {
             item {
-                DiscussionSection("Les 7 derniers jours", last7DaysDiscussions, viewModel)
+                DiscussionSection(stringResource(id = R.string.seven), last7DaysDiscussions, viewModel)
             }
         }
         if (last30DaysDiscussions.isNotEmpty()) {
             item {
-                DiscussionSection("Les 30 derniers jours", last30DaysDiscussions, viewModel)
+                DiscussionSection(stringResource(id = R.string.THRT), last30DaysDiscussions, viewModel)
             }
         }
     }
@@ -170,7 +171,7 @@ fun DiscussionSection(title: String, discussions: List<PreviousDiscussion>, view
             modifier = Modifier.padding(vertical = 4.dp)
         )
         discussions.forEach { discussion ->
-            val firstMessage = discussion.messages.firstOrNull()?.message ?: "Empty discussion"
+            val firstMessage = discussion.messages.firstOrNull()?.message ?: stringResource(id = R.string.ampty)
             Card(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -202,7 +203,7 @@ fun DiscussionSection(title: String, discussions: List<PreviousDiscussion>, view
                     IconButton(onClick = { viewModel.removeDiscussion(discussion) }) {
                         Icon(
                             imageVector = Icons.Default.Delete,
-                            contentDescription = "Supprimer",
+                            contentDescription = stringResource(id = R.string.delete),
                             tint = bleuApp
                         )
                     }

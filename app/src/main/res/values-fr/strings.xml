@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">GeminiChat</string>
+    <string name="appname">Gemini Chat</string>
+    <string name="send">envoyer</string>
+    <string name="ask">Posez quelque chose ...</string>
+    <string name="ampty">Discussion vide</string>
+    <string name="delete">Supprimer</string>
+    <string name="THRT">Les 30 derniers jours</string>
+    <string name="seven">The last 7 days</string>
+    <string name="hier">Yesterday</string>
+    <string name="auj">Today</string>
+    <string name="all">Delete all</string>
+    <string name="recent">Discussions récentes</string>
+</resources>
