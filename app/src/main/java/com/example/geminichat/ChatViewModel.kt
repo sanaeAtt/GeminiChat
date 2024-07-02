@@ -1,10 +1,8 @@
-package com.example.geminichat
-
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.compose.runtime.mutableStateListOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.geminichat.Constants
+import com.example.geminichat.MessageModel
 import com.google.ai.client.generativeai.GenerativeModel
 import com.google.ai.client.generativeai.type.content
 import kotlinx.coroutines.launch
@@ -24,7 +22,6 @@ class ChatViewModel : ViewModel() {
         apiKey = Constants.apiKey
     )
 
-    @RequiresApi(Build.VERSION_CODES.O)
     fun sendMessage(question: String) {
         viewModelScope.launch {
             try {
@@ -48,7 +45,12 @@ class ChatViewModel : ViewModel() {
         }
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
+
+    fun removeDiscussion(discussion: PreviousDiscussion) {
+        previousDiscussions.remove(discussion)
+    }
+
+
     fun resetChat() {
         if (messageList.isNotEmpty()) {
             val discussion = PreviousDiscussion(
@@ -61,7 +63,7 @@ class ChatViewModel : ViewModel() {
         }
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
+
     private fun cleanUpOldDiscussions() {
         val cutoffDate = LocalDateTime.now().minusDays(30)
         previousDiscussions.removeAll { it.timestamp.isBefore(cutoffDate) }

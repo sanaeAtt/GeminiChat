@@ -1,8 +1,10 @@
 package com.example.geminichat
 
+import ChatViewModel
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -20,6 +22,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -41,9 +44,12 @@ fun chatPage(viewModel: ChatViewModel) {
             MessageList(
                 modifier = Modifier.weight(1f), messageList = viewModel.messageList
             )
-            MessageInput(onMessageSend = {
-                viewModel.sendMessage(question = it)
-            })
+            MessageInput(
+                onMessageSend = {
+                    viewModel.sendMessage(question = it)
+
+                }
+            )
         }
     }
 }
@@ -148,7 +154,7 @@ fun MessageRow(messageModel: MessageModel) {
     }
 }
 @Composable
-fun MessageInput(onMessageSend: (String) -> Unit, modifier: Modifier = Modifier) {
+fun MessageInput(onMessageSend: (String) -> Unit,modifier: Modifier = Modifier) {
     var message by remember {
         mutableStateOf("")
     }
@@ -156,7 +162,12 @@ fun MessageInput(onMessageSend: (String) -> Unit, modifier: Modifier = Modifier)
         modifier = modifier
             .fillMaxWidth()
             .padding(top = 8.dp, start = 8.dp, end = 8.dp)
-            .background(Color.Transparent),
+            .background(Color.Transparent)
+            .pointerInput(Unit){
+                detectTapGestures(onTap = {
+
+                })
+            },
         verticalAlignment = Alignment.CenterVertically
     ) {
         OutlinedTextField(
