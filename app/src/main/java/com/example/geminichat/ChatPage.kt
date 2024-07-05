@@ -10,11 +10,13 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Send
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -60,21 +62,21 @@ fun AppHeader(onNewDiscussionClick: () -> Unit) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .background(bleuApp)
+            .background(MaterialTheme.colorScheme.primary)
             .padding(16.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         Text(
             text = stringResource(id = R.string.appname),
-            color = Color.White,
+            color = MaterialTheme.colorScheme.secondary,
             fontSize = 22.sp
         )
         IconButton(onClick = onNewDiscussionClick) {
             Icon(
                 painter = painterResource(id = R.drawable.ic_new_discussion),
                 contentDescription = "Start New Discussion",
-                tint = Color.White,
+                tint = MaterialTheme.colorScheme.secondary,
                 modifier = Modifier.size(24.dp)
             )
         }
@@ -95,9 +97,9 @@ fun MessageList(modifier: Modifier = Modifier, messageList: List<MessageModel>) 
                 modifier = Modifier.size(60.dp),
                 painter = painterResource(id = R.drawable.ic_question_answer),
                 contentDescription = "icon",
-                tint = bleuApp
+                tint = MaterialTheme.colorScheme.onSecondary
             )
-            Text(text = stringResource(id = R.string.ask), fontSize = 22.sp,)
+            Text(text = stringResource(id = R.string.ask), fontSize = 22.sp, color = MaterialTheme.colorScheme.onSurface)
         }
     } else {
         LazyColumn(
@@ -116,8 +118,8 @@ fun MessageList(modifier: Modifier = Modifier, messageList: List<MessageModel>) 
                     MessageRow(messageModel = message)
                 }
             }
-        }
     }
+}
 
 @Composable
 fun MessageRow(messageModel: MessageModel) {
@@ -140,7 +142,7 @@ fun MessageRow(messageModel: MessageModel) {
                         bottom = 8.dp
                     )
                     .clip(RoundedCornerShape(18f))
-                    .background(if (isModel) bleu else Vertpale)
+                    .background(if (isModel) MaterialTheme.colorScheme.surfaceVariant else MaterialTheme.colorScheme.surfaceTint)
                     .padding(16.dp)
             ) {
                 SelectionContainer {
@@ -154,6 +156,8 @@ fun MessageRow(messageModel: MessageModel) {
         }
     }
 }
+
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MessageInput(onMessageSend: (String) -> Unit,modifier: Modifier = Modifier) {
     var message by remember {
@@ -162,7 +166,7 @@ fun MessageInput(onMessageSend: (String) -> Unit,modifier: Modifier = Modifier) 
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .padding(top = 8.dp, start = 8.dp, end = 8.dp)
+            .padding(top = 8.dp, start = 8.dp, end = 8.dp, bottom = 5.dp)
             .background(Color.Transparent)
             .pointerInput(Unit){
                 detectTapGestures(onTap = {
@@ -177,17 +181,21 @@ fun MessageInput(onMessageSend: (String) -> Unit,modifier: Modifier = Modifier) 
             onValueChange = {
                 message = it
             },
+            colors = TextFieldDefaults.outlinedTextFieldColors(
+                focusedBorderColor = MaterialTheme.colorScheme.onSecondary, // Change the border color when focused
+                unfocusedBorderColor = MaterialTheme.colorScheme.onSecondary // Change the border color when unfocused
+            )
         )
         IconButton(onClick = {
             if (message.isNotEmpty()) {
                 onMessageSend(message)
-                message = "" // clear the box
+                message = ""
             }
         }) {
             Icon(
                 imageVector = Icons.Default.Send,
                 contentDescription = stringResource(id = R.string.send),
-                tint = bleuApp
+                tint = MaterialTheme.colorScheme.onSecondary
             )
         }
     }

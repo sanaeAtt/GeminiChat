@@ -13,4 +13,6 @@
     <string name="auj">Auj</string>
     <string name="all">Supprimer tous</string>
     <string name="recent">Recent Discussions</string>
+    <string name="dark">dark</string>
+    <string name="light">light</string>
 </resources>

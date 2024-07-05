@@ -12,4 +12,6 @@
     <string name="auj">Today</string>
     <string name="all">Delete all</string>
     <string name="recent">Discussions récentes</string>
+    <string name="dark">sombre</string>
+    <string name="light">claire</string>
 </resources>

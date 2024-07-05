@@ -3,7 +3,12 @@ package com.example.geminichat.ui.theme
 import androidx.compose.ui.graphics.Color
 
 val Purple80 = Color(0xFFD0BCFF)
+val white = Color(0xFFFDFDFD)
+val gray = Color(0xFF817E88)
+val black = Color(0xFF19171F)
+val blackapp = Color(0xFF232224)
 val PurpleGrey80 = Color(0xFFCCC2DC)
+val darckgrey = Color(0xFF4F4D53)
 val Pink80 = Color(0xFFEFB8C8)
 
 val Purple40 = Color(0xFF6650a4)
